@@ -1,0 +1,17 @@
+{
+  "files": {
+    "main.css": "/static/css/main.523126dc.css",
+    "main.js": "/static/js/main.8c3e02f3.js",
+    "static/media/3rd-page-image.jpg": "/static/media/3rd-page-image.7b1851aa95c9851d4dec.jpg",
+    "static/media/2nd-page-image-2.jpg": "/static/media/2nd-page-image-2.1fc54caca01222adb322.jpg",
+    "static/media/image4.jpg": "/static/media/image4.2ff57c046bb66fa6902d.jpg",
+    "static/media/hostel-hub-logo.png": "/static/media/hostel-hub-logo.44aa6d019d94eb3e4cd2.png",
+    "index.html": "/index.html",
+    "main.523126dc.css.map": "/static/css/main.523126dc.css.map",
+    "main.8c3e02f3.js.map": "/static/js/main.8c3e02f3.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.523126dc.css",
+    "static/js/main.8c3e02f3.js"
+  ]
+}
