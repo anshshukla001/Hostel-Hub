@@ -20,7 +20,7 @@ const ProtectedRoute = ({ component: Component, allowedRoles }) => {
     if (isAuthenticated) {
       fetchUser();
     }
-  }, []);
+  }, [isAuthenticated]);
 
 
   if (!isAuthenticated || (user && !allowedRoles.includes(user?.role))) {

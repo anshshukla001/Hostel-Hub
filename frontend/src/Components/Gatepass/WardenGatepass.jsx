@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import axios from '../../axiosConfig.js';
 import toast from "react-hot-toast";
 import { ScaleLoader } from 'react-spinners';
@@ -12,17 +12,23 @@ export default function WardenGatepass() {
   const [loadingGatepass, setLoadingGatepass] = useState({});
 
 
-  async function getUser() {
+  const getUser = useCallback(async () => {
     try {
       const response = await axios.get('/user/getUser');
       setUser(response.data.user);
     } catch (error) {
       console.log("Error ", error);
     }
-  }
+  }, []);
 
-  async function getData() {
+  const getData = useCallback(async () => {
     const hostel = user?.hostel;
+
+    if (!hostel) {
+      setLoading(false);
+      return;
+    }
+
     setLoading(true);
     try {
       const response = await axios.get(`/gatepass/warden/gatepass/${hostel}`);
@@ -32,15 +38,15 @@ export default function WardenGatepass() {
     } finally {
       setLoading(false);
     }
-  }
+  }, [user?.hostel]);
 
   useEffect(() => {
     getUser();
-  }, []);
+  }, [getUser]);
 
   useEffect(() => {
     getData();
-  }, [user])
+  }, [getData])
 
   useEffect(() => {
     const fetchGatepasses = async () => {

@@ -1,5 +1,5 @@
 import axios from '../../axiosConfig.js';
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
 import { useParams } from 'react-router-dom';
 import { ScaleLoader } from 'react-spinners';
@@ -10,23 +10,23 @@ export default function HostelListing() {
     const [students, setStudents] = useState([]);
     const [loading, setLoading] = useState(true);
 
-    async function fetchStudents() {
+    const fetchStudents = useCallback(async () => {
         try {
             const response = await axios.get(`/user/${hostelID}/getstudents`);
             setStudents(response.data.students);
         } catch (error) {
             toast.error(error.message || "Failed Getting Students");
         }
-    }
+    }, [hostelID]);
 
-    async function fetchWardens() {
+    const fetchWardens = useCallback(async () => {
         try {
             const response = await axios.get(`/user/${hostelID}/getwardens`);
             setWardens(response.data.wardens);
         } catch (error) {
             toast.error(error.message || "Failed Getting Wardens");
         }
-    }
+    }, [hostelID]);
     async function removeUserAPICaller(userID) {
         try {
             await axios.delete(`/user/remove/${userID}`);
@@ -51,15 +51,15 @@ export default function HostelListing() {
         ));
     }
 
-    const fetchData = async () => {
+    const fetchData = useCallback(async () => {
         setLoading(true);
         await Promise.all([fetchStudents(), fetchWardens()]);
         setLoading(false);
-    };
+    }, [fetchStudents, fetchWardens]);
 
     useEffect(() => {
         fetchData();
-    }, [hostelID]);
+    }, [fetchData]);
     return (
         <div className='bg-neutral-100 flex justify-center min-h-[88vh]'>
             {
