@@ -12,19 +12,22 @@ const adminRouter = require("./routes/admin.routes.js");
 
 const app = express();
 const port = process.env.PORT;
+const allowedOrigins = ["http://localhost:3000"];
+
+if (process.env.CLIENT_ORIGIN) {
+  allowedOrigins.push(
+    ...process.env.CLIENT_ORIGIN.split(",").map((origin) => origin.trim()).filter(Boolean)
+  );
+}
+
 dbConnect();
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 app.use(
   cors({
-    origin: [
-      "http://localhost:3000",
-      "https://hostelhub01.netlify.app",
-      "https://hostel-hub-bl3q.onrender.com",
-      "https://hostel-hub-frontend-weld.vercel.app",
-    ],
+    origin: allowedOrigins,
     credentials: true,
-    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
     allowedHeaders: ["Content-Type", "Authorization"],
   })
 );
@@ -38,6 +41,10 @@ app.use("/gatepass", gatepassRouter);
 app.use("/complaints", complaintsRouter);
 app.use("/admin", adminRouter);
 
-app.listen(port, () => {
-  console.log(`Server Started At ${port}`);
-});
+if (require.main === module) {
+  app.listen(port, () => {
+    console.log(`Server Started At ${port}`);
+  });
+}
+
+module.exports = app;

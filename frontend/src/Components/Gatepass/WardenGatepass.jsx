@@ -14,7 +14,7 @@ export default function WardenGatepass() {
 
   async function getUser() {
     try {
-      const response = await axios.get('/user/getUser ');
+      const response = await axios.get('/user/getUser');
       setUser(response.data.user);
     } catch (error) {
       console.log("Error ", error);

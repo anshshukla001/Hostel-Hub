@@ -11,7 +11,7 @@ export default function Gatepass() {
 
   const fetchUser = async () => {
     try {
-      const response = await axios.get('/user/getUser ');
+      const response = await axios.get('/user/getUser');
       setUser(response.data.user);
       setLoading(false); 
     } catch (error) {

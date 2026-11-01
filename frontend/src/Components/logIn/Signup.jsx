@@ -2,7 +2,7 @@ import React from "react";
 import logo from "../../Images/logos/hostel-hub-logo.png";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
+import axios from "../../axiosConfig.js";
 import toast from "react-hot-toast";
 
 export default function Signup() {
@@ -33,7 +33,7 @@ export default function Signup() {
     event.preventDefault();
     try {
       const response = await axios.post(
-        "https://hostel-hub-backend.vercel.app/user/signup",
+        "/user/signup",
         signupData
       );
       toast.success(response.data.message);

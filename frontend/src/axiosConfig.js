@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-axios.defaults.baseURL = 'https://hostel-hub-backend.vercel.app/';
+axios.defaults.baseURL = process.env.REACT_APP_API_URL || 'http://localhost:8000/';
 
 axios.interceptors.request.use(
   (config) => {

@@ -1,11 +1,9 @@
 import logo from "../../Images/logos/hostel-hub-logo.png";
-import { useState, useContext,useEffect } from "react";
+import { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
+import axios from "../../axiosConfig.js";
 import toast from "react-hot-toast";
 import { AppContext } from "../../Context/AppContext";
-
-axios.defaults.withCredentials = true;
 
 export default function Login() {
   const [loginData, setLoginData] = useState({ email: "", pass: "" });
@@ -26,7 +24,7 @@ export default function Login() {
     event.preventDefault();
     try {
       const response = await axios.post(
-        "https://hostel-hub-backend.vercel.app/user/login",
+        "/user/login",
         loginData
       );
       toast.success(response.data.message);
@@ -38,17 +36,6 @@ export default function Login() {
       console.log("Error ", error);
     }
   }
-
-  function setAuthorizationHeader() {
-    const token = localStorage.getItem("token");
-    if (token) {
-      axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
-    }
-  }
-
-  useEffect(() => {
-    setAuthorizationHeader();
-  }, []);
 
   return (
     <div className="flex h-[100vh] w-full justify-center items-center">
